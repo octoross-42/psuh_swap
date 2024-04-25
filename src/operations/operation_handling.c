@@ -12,30 +12,28 @@
 
 #include "push_swap.h"
 
-
 void	ft_print_op(int op)
 {
 	if (op == SA)
-		write(1, "sa", 2);
+		write(1, "sa\n", 3);
 	else if (op == SB)
-		write(1, "sb", 2);
+		write(1, "sb\n", 3);
 	else if (op == SS)
-		write(1, "ss", 2);
+		write(1, "ss\n", 3);
 	else if (op == PA)
-		write(1, "pa", 2);
+		write(1, "pa\n", 3);
 	else if (op == PB)
-		write(1, "pb", 2);
+		write(1, "pb\n", 3);
 	else if (op == RA)
-		write(1, "ra", 2);
+		write(1, "ra\n", 3);
 	else if (op == RRA)
-		write(1, "rra", 3);
+		write(1, "rra\n", 4);
 	else if (op == RB)
-		write(1, "rb", 2);
+		write(1, "rb\n", 3);
 	else if (op == RRB)
-		write(1, "rrb", 3);
+		write(1, "rrb\n", 4);
 	else if (op == SS)
-		write(1, "rrr", 3);
-	write(1, "\n", 1);
+		write(1, "rrr\n", 4);
 }
 
 void	ft_print_operations(t_operations *operations)
@@ -78,10 +76,8 @@ int	ft_add_operation(int op, t_operations **operations)
 		new->previous = next;
 	}
 	else
-	{
 		*operations = new;
-		(*operations)->previous = new;
-	}
+	(*operations)->previous = new;
 	return (0);
 }
 

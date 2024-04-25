@@ -50,7 +50,52 @@ int	ft_annule_ops(int op1, int op2)
 	return (0);
 }
 
-int	ft_optimise_ops(int nbr_ops, t_operations **ops)
+void	ft_rm_op(t_operations **ops, t_operations *op)
+{
+	if (!(op->previous->next))
+
+		*ops = op->next;
+	else
+		op->previous->next = op->next;
+	if (op->next)
+		op->next->previous = op->previous;
+	free(op);
+}
+
+t_operations	*ft_rm_2ops(t_operations **ops, t_operations *op1, t_operations *op2)
+{
+	t_operations	*tmp;
+
+	tmp = op1->previous;
+	if (!(op1->previous->next) && (op1->next != op2))
+		tmp = op1->next;
+	else if (!(op1->previous->next))
+		tmp = op2->next;
+	ft_rm_op(ops, op1);
+	ft_rm_op(ops, op2);
+	return (tmp);
+}
+
+void	ft_possible_merge_ops(t_operations **ops, t_operations *op1, t_operations *op2)
+{
+	if ((op1->op == SA && op2->op == SB) || (op1->op == SB && op2->op == SA))
+	{
+		op1->op = SS;
+		ft_rm_op(ops, op2);
+	}
+	else if ((op1->op == RA && op2->op == RB) || (op1->op == RB && op2->op == RA))
+	{
+		op1->op = RR;
+		ft_rm_op(ops, op2);
+	}
+	else if ((op1->op == RRA && op2->op == RRB) || (op1->op == RRB && op2->op == RRA))
+	{
+		op1->op = RRR;
+		ft_rm_op(ops, op2);
+	}
+}
+
+int	ft_synthetise_ops(int nbr_ops, t_operations **ops)
 {
 	t_operations	*next;
 	t_operations	*indep;
@@ -60,11 +105,22 @@ int	ft_optimise_ops(int nbr_ops, t_operations **ops)
 	{
 		indep = next;
 		while (indep->next && ft_are_indep(indep->op, indep->next->op))
+			indep = indep->next;
+		if (ft_annule_ops(indep->next->op, next->op))
+			next = ft_rm_2ops(ops, next, indep->next);
+		else
+			next = next->next;
+	}
+	next = *ops;
+	while (next && next->next)
+	{
+		indep = next;
+		while (indep->next && ft_are_indep(indep->op, indep->next->op))
 		{
-			
+			ft_possible_merge_ops(ops, next, indep);
 			indep = indep->next;
 		}
-		
+		next = next->next;
 	}
 	return (nbr_ops);
 }

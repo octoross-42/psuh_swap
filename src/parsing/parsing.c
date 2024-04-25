@@ -104,10 +104,14 @@ t_stack	*ft_checked_args(int argc, char **argv, int *size)
 	while (aux.i < argc)
 	{
 		splited = ft_split(argv[aux.i], " \n\t\n\v\r\f");
-		if (!splited)
+		if (!splited || !splited[0])
 		{
-			if (PRINT_ERRORS)
+			if (splited)
+				free(splited);
+			if (PRINT_ERRORS && !splited)
 				ft_printf(ERR_MALLOC);
+			else if (PRINT_ERRORS)
+				ft_printf(ERR_NO_ARG);
 			return (ft_clear_stack(&aux.stack), NULL);
 		}
 		aux.j = 0;

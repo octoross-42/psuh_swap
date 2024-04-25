@@ -18,6 +18,10 @@ void	ft_init_sort(t_sort *sort, t_stack *a, int size)
 	sort->b = NULL;
 	sort->size_a = size;
 	sort->size_b = 0;
+	sort->min_a = 1;
+	sort->min_b = 0;
+	sort->max_a = size;
+	sort->max_b = 0;
 	sort->size = size;
 	sort->ops = NULL;
 	sort->nbr_ops = 0;
@@ -51,7 +55,7 @@ int main(int argc, char **argv)
 	ft_init_sort(&sort, a, size);
 	ft_sort(&sort);
 	// ft_print_stacks(sort.a, sort.b);
-	// ft_optimise_ops(&sort.ops);
+	ft_synthetise_ops(sort.nbr_ops, &sort.ops);
 	ft_print_operations(sort.ops);
 	ft_clear_stacks(&sort.a, &sort.b);
 	// ft_clear_operations(sort.ops);

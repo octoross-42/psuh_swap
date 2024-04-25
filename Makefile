@@ -9,8 +9,8 @@ SRCS =  src/operations/operation_handling.c \
 		src/parsing/parsing.c \
 		src/stack/stack_handling.c \
 		src/stack/print_stacks.c \
-		src/sort/sort_only_with_a.c \
 		src/sort/chunks_sort.c \
+		src/sort/push_to_b.c \
 		src/sort/sort.c \
 		src/sort/optimise_ops.c \
 		src/printf/printf.c \

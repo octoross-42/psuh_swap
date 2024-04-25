@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 03:15:56 by nesuvya           #+#    #+#             */
-/*   Updated: 2024/04/23 19:01:00 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:29:52 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,18 @@ typedef struct s_operations
 	struct s_operations *previous;
 }	t_operations;
 
-int		ft_optimise_ops(int nbr_ops, t_operations **ops);
+void	ft_print_op(int op);
+int		ft_synthetise_ops(int nbr_ops, t_operations **ops);
 void	ft_clear_operations(t_operations *ops);
 int		ft_add_operation(int op, t_operations **operations);
 void	ft_print_operations(t_operations *operations);
 
 typedef struct s_sort
 {
+	int				min_a;
+	int				max_a;
+	int				min_b;
+	int				max_b;
 	int				size;
 	int				size_a;
 	int				size_b;
@@ -94,10 +99,11 @@ int		ft_double_rotate(t_sort *sort);
 int		ft_double_reverse_rotate(t_sort *sort);
 
 void	ft_do_operation(t_sort *sort, int op);
-void	ft_sort_only_with_a(t_sort *sort);
+
 t_stack	*ft_checked_args(int argc, char **argv, int *size);
 
-void	ft_get_closer_of_chunk_n_in_b(t_sort *sort, int chunk_min, int chunk_max);
+void	ft_get_closer_of_chunk_n_in_b(t_sort *sort, int chunk_min, int chunk_max, int next_chunk_min, int next_chunk_max);
+void	ft_push_to_b(t_sort *sort);
 void	ft_chunks_sort(t_sort *sort);
 void	ft_sort(t_sort *s);
 

@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:07:56 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/23 17:34:59 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:11:46 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@
 # define ERR_MALLOC "Error : malloc failed\n"
 # define ERR_SAME "Error : value is not unique : %d\n"
 # define ERR_INT "Error : %s is not an int\n"
+# define ERR_NO_ARG "Error : no value given\n"
 
-# define PRINT_ERRORS 1
+# define PRINT_ERRORS 0
 
 # define TINY_NBR_CHUNKS 2
-# define SMALL_NBR_CHUNKS 5
-# define MEDIUM_NBR_CHUNKS 6
+# define SMALL_NBR_CHUNKS 3
+# define MEDIUM_NBR_CHUNKS 4
 # define BIG_NBR_CHUNKS 18
 
 # include <stdlib.h>
