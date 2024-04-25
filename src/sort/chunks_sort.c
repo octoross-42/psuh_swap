@@ -61,15 +61,11 @@
 
 void	ft_pull_a_reserve(t_sort *sort, int *reserve, int *expected_order)
 {
-	t_stack	*tmp;
-
-	tmp = sort->a->previous;
-	while (tmp && (*reserve > 0) && (tmp->order == sort->a->order -1))
+	while ((*reserve > 0) && (sort->a->previous->order == sort->a->order - 1))
 	{
 		// printf("on pull : %d\n", tmp->order);
 		ft_do_operation(sort, RRA);
 		(*reserve) --;
-		tmp = tmp->previous;
 	}
 	*expected_order = sort->a->order - 1;
 }
@@ -92,12 +88,12 @@ void	ft_push_back_to_a(t_sort *sort)
 	t_stack	*tmp;
 
 	chunk = sort->nbr_chunks;
-	while (chunk > 0)
+	reserve = 0;
+	expected_order = sort->size;
+	min_chunk = sort->size - sort->size_chunk + 1 - (chunk > (sort->nbr_chunks - sort->add_chunk)); 
+	max_chunk = sort->size;
+	while (chunk > 0 && expected_order > 0)
 	{
-		reserve = 0;
-		min_chunk = sort->size - sort->size_a + 1 - sort->size_chunk - (chunk > (sort->nbr_chunks - sort->add_chunk));
-		max_chunk = sort->size - sort->size_a;
-		expected_order = max_chunk;
 		while (expected_order >= min_chunk)
 		{
 			tmp = sort->b;
@@ -111,18 +107,26 @@ void	ft_push_back_to_a(t_sort *sort)
 			{
 				if (((sort->a && (reserve > 0) && (sort->b->order > sort->a->previous->order)) || (reserve == 0) || !sort->a))
 				{
-					ft_print_stacks(sort->a, sort->b);
-					printf("expected : %d, reserve %d, min %d max : %d\n", expected_order, reserve, min_chunk, max_chunk);
+					// printf("push to reserve : %d\n", sort->b->order);
+					// ft_print_stacks(sort->a, sort->b);
 					ft_push_to_reserve_in_a(sort, &reserve);
+					// printf("expected : %d, reserve %d, min %d max : %d\n", expected_order, reserve, min_chunk, max_chunk);
+					// ft_print_stacks(sort->a, sort->b);
 				}
 				else
 					ft_do_operation(sort, dir);
 			}
 			ft_do_operation(sort, PA);
 			expected_order --;
+			// printf("on a push maintenant\n");
 			ft_pull_a_reserve(sort, &reserve, &expected_order);
+			
+			// ft_print_stacks(sort->a, sort->b);
+			// printf("expected : %d, reserve %d, min %d max : %d\n\n", expected_order, reserve, min_chunk, max_chunk);
 		}
-		chunk --; 
+		chunk --;
+		max_chunk = min_chunk - 1;
+		min_chunk = max_chunk - sort->size_chunk + 1 - (chunk > (sort->nbr_chunks - sort->add_chunk));
 	}
 }
 
