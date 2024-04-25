@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:14:45 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/25 20:31:29 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/25 21:06:58 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ int	ft_bottom_distance_to_chunk(t_stack *a, int size_a, int chunk_min, int chunk
 	return (-1);
 }
 
+int	ft_we_swap(t_sort *sort)
+{
+	if (!(sort->a && sort->a->next && sort->b && sort->b->next))
+		return (0);
+	if ((sort->a->order > sort->a->next->order) && (sort->b->order < sort->b->next->order))
+	{
+		ft_do_operation(sort, SS);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_push_to_b(t_sort *sort)
 {
 	int	chunk;
@@ -90,6 +102,11 @@ void	ft_push_to_b(t_sort *sort)
 			// printf("min %d max %d next min %d max %d\n", min_chunk, max_chunk, min_next_chunk, max_next_chunk);
 			// printf("bottom %d up %d\n\n", bottom_a, top_a);
 			// ft_print_stacks(sort->a, sort->b);
+			if (ft_we_swap(sort))
+			{
+				bottom_a = ft_bottom_distance_to_chunk(sort->a, sort->size_a, min_chunk, max_chunk);
+				top_a = ft_top_distance_to_chunk(sort->a, sort->size_a, min_chunk, max_chunk);
+			}
 			if (!(min_chunk <= sort->a->order && sort->a->order <= max_chunk))
 			{
 				if ((top_a > 0 && top_a < bottom_a) || (bottom_a < 0))

@@ -64,14 +64,14 @@ void	ft_pull_a_reserve(t_sort *sort, int *reserve, int *expected_order)
 	t_stack	*tmp;
 
 	tmp = sort->a->previous;
-	while (tmp && (*reserve > 0) && tmp->order == *expected_order)
+	while (tmp && (*reserve > 0) && (tmp->order == sort->a->order -1))
 	{
 		// printf("on pull : %d\n", tmp->order);
 		ft_do_operation(sort, RRA);
-		(*expected_order) --;
 		(*reserve) --;
 		tmp = tmp->previous;
 	}
+	*expected_order = sort->a->order - 1;
 }
 
 void	ft_push_to_reserve_in_a(t_sort *sort, int *reserve)
@@ -109,8 +109,12 @@ void	ft_push_back_to_a(t_sort *sort)
 				dir = RRB;
 			while (sort->b->order != expected_order)
 			{
-				if (((sort->a && sort->b->order > sort->a->previous->order) || !sort->a) && sort->b->order != expected_order)
+				if (((sort->a && (reserve > 0) && (sort->b->order > sort->a->previous->order)) || (reserve == 0) || !sort->a))
+				{
+					ft_print_stacks(sort->a, sort->b);
+					printf("expected : %d, reserve %d, min %d max : %d\n", expected_order, reserve, min_chunk, max_chunk);
 					ft_push_to_reserve_in_a(sort, &reserve);
+				}
 				else
 					ft_do_operation(sort, dir);
 			}
