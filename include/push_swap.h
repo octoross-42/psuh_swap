@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 03:15:56 by nesuvya           #+#    #+#             */
-/*   Updated: 2024/04/25 15:29:52 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 03:53:23 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,13 @@ void	ft_push_to_b(t_sort *sort);
 void	ft_chunks_sort(t_sort *sort);
 void	ft_sort(t_sort *s);
 
+void	ft_sort_three(t_sort *sort);
+int	ft_we_swap(t_sort *sort);
+int	ft_undo_operation(t_sort *sort, t_operations *op, t_operations **ops);
+int	ft_do_operation_ops(t_sort *sort, int op, t_operations **ops);
+
+int	ft_bottom_distance_to_chunk(t_stack *a, int size_a, int chunk_min, int chunk_max);
+int	ft_top_distance_to_chunk(t_stack *a, int size_a, int chunk_min, int chunk_max);
+int	ft_chunk_is_sorted(t_stack *a);
 
 #endif

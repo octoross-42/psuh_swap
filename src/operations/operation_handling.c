@@ -32,8 +32,10 @@ void	ft_print_op(int op)
 		write(1, "rb\n", 3);
 	else if (op == RRB)
 		write(1, "rrb\n", 4);
-	else if (op == SS)
+	else if (op == RRR)
 		write(1, "rrr\n", 4);
+	else if (op == RR)
+		write(1, "rr\n", 3);
 }
 
 void	ft_print_operations(t_operations *operations)
@@ -117,20 +119,4 @@ void	ft_do_operation(t_sort *sort, int op)
 	sort->size_b += (op == PB) * (sort->size_a > 0) - (op == PA) * (sort->size_b > 0);
 	sort->nbr_ops ++;
 	ft_add_operation(op, &(sort->ops));
-}
-
-// useless pour le moment
-int	ft_addfront_operation(t_operations **ops, int op)
-{
-	t_operations	*new;
-
-	if (!ops)
-		return (1);
-	new = (t_operations *)malloc(sizeof(t_operations));
-	if (!new)
-		return (1);
-	new->next = *ops;
-	new->op = op;
-	*ops = new;
-	return (0);
 }

@@ -76,23 +76,24 @@ t_operations	*ft_rm_2ops(t_operations **ops, t_operations *op1, t_operations *op
 	return (tmp);
 }
 
-void	ft_possible_merge_ops(t_operations **ops, t_operations *op1, t_operations *op2)
+t_operations	*ft_possible_merge_ops(t_operations **ops, t_operations *op)
 {
-	if ((op1->op == SA && op2->op == SB) || (op1->op == SB && op2->op == SA))
+	if ((op->op == SA && op->next->op == SB) || (op->op == SB && op->next->op == SA))
 	{
-		op1->op = SS;
-		ft_rm_op(ops, op2);
+		ft_rm_op(ops, op->next);
+		op->op = SS;
 	}
-	else if ((op1->op == RA && op2->op == RB) || (op1->op == RB && op2->op == RA))
+	else if ((op->op == RA && op->next->op == RB) || (op->op == RB && op->next->op == RA))
 	{
-		op1->op = RR;
-		ft_rm_op(ops, op2);
+		ft_rm_op(ops, op->next);
+		op->op = RR;
 	}
-	else if ((op1->op == RRA && op2->op == RRB) || (op1->op == RRB && op2->op == RRA))
+	else if ((op->op == RRA && op->next->op == RRB) || (op->op == RRB && op->next->op == RRA))
 	{
-		op1->op = RRR;
-		ft_rm_op(ops, op2);
+		ft_rm_op(ops, op->next);
+		op->op = RRR;
 	}
+	return (op->next);
 }
 
 int	ft_synthetise_ops(int nbr_ops, t_operations **ops)
@@ -113,14 +114,6 @@ int	ft_synthetise_ops(int nbr_ops, t_operations **ops)
 	}
 	next = *ops;
 	while (next && next->next)
-	{
-		indep = next;
-		while (indep->next && ft_are_indep(indep->op, indep->next->op))
-		{
-			ft_possible_merge_ops(ops, next, indep);
-			indep = indep->next;
-		}
-		next = next->next;
-	}
+		next = ft_possible_merge_ops(ops, next);
 	return (nbr_ops);
 }

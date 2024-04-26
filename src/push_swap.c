@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 02:28:49 by nesuvya           #+#    #+#             */
-/*   Updated: 2024/04/25 21:46:35 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 05:01:26 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 	if (!a)
 	{
 		if (!PRINT_ERRORS)
-			write(1, "Error\n", 6);
+			write(2, "Error\n", 6);
 		return (1);
 	}
 	ft_init_sort(&sort, a, size);

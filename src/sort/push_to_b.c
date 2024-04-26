@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:14:45 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/25 21:06:58 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 03:56:24 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ void	ft_pull_b_reserve(t_sort *sort, int chunk_min, int chunk_max)
 	}
 }
 
-void	ft_push_to_reserve_in_b(t_sort *sort)
+void	ft_push_to_reserve_in_b(t_sort *sort, int chunk)
 {
 	ft_do_operation(sort, PB);
-	ft_do_operation(sort, RB);
+	if (chunk % 2)
+		ft_do_operation(sort, RB);
 }
 
 int	ft_top_distance_to_chunk(t_stack *a, int size_a, int chunk_min, int chunk_max)
@@ -66,13 +67,10 @@ int	ft_bottom_distance_to_chunk(t_stack *a, int size_a, int chunk_min, int chunk
 
 int	ft_we_swap(t_sort *sort)
 {
-	if (!(sort->a && sort->a->next && sort->b && sort->b->next))
-		return (0);
-	if ((sort->a->order > sort->a->next->order) && (sort->b->order < sort->b->next->order))
-	{
-		ft_do_operation(sort, SS);
-		return (1);
-	}
+	if (sort->a && sort->a->next && sort->a->next->order == sort->a->next->order - 1)
+		ft_do_operation(sort, SA);
+	if (sort->b && sort->b->next && sort->b->order == sort->b->order - 1)
+		ft_do_operation(sort, SB);
 	return (0);
 }
 
@@ -98,15 +96,6 @@ void	ft_push_to_b(t_sort *sort)
 		top_a = ft_top_distance_to_chunk(sort->a, sort->size_a, min_chunk, max_chunk);
 		while (sort->a && (bottom_a > 0 || top_a > 0 || (min_chunk <= sort->a->order && sort->a->order <= max_chunk)))
 		{
-			// printf("size a : %d %d\n", sort->size_a, (sort->size_a / 2));
-			// printf("min %d max %d next min %d max %d\n", min_chunk, max_chunk, min_next_chunk, max_next_chunk);
-			// printf("bottom %d up %d\n\n", bottom_a, top_a);
-			// ft_print_stacks(sort->a, sort->b);
-			if (ft_we_swap(sort))
-			{
-				bottom_a = ft_bottom_distance_to_chunk(sort->a, sort->size_a, min_chunk, max_chunk);
-				top_a = ft_top_distance_to_chunk(sort->a, sort->size_a, min_chunk, max_chunk);
-			}
 			if (!(min_chunk <= sort->a->order && sort->a->order <= max_chunk))
 			{
 				if ((top_a > 0 && top_a < bottom_a) || (bottom_a < 0))
@@ -116,17 +105,15 @@ void	ft_push_to_b(t_sort *sort)
 				while (min_chunk > sort->a->order || sort->a->order > max_chunk)
 				{
 					if (min_next_chunk <= sort->a->order && sort->a->order <= max_next_chunk)
-						ft_push_to_reserve_in_b(sort);
+						ft_push_to_reserve_in_b(sort, chunk + 1);
 					else
 						ft_do_operation(sort, dir);
 				}
 			}
-		
-			ft_do_operation(sort, PB);
+			ft_push_to_reserve_in_b(sort, chunk);
 			bottom_a = ft_bottom_distance_to_chunk(sort->a, sort->size_a, min_chunk, max_chunk);
 			top_a = ft_top_distance_to_chunk(sort->a, sort->size_a, min_chunk, max_chunk);
 		}
-		ft_pull_b_reserve(sort, min_next_chunk, max_next_chunk);
 		chunk ++;
 		min_chunk = min_next_chunk;
 		max_chunk = max_next_chunk;

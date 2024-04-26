@@ -61,7 +61,7 @@
 
 void	ft_pull_a_reserve(t_sort *sort, int *reserve, int *expected_order)
 {
-	while ((*reserve > 0) && (sort->a->previous->order == sort->a->order - 1))
+	while (sort->a && (*reserve > 0) && (sort->a->previous->order == sort->a->order - 1))
 	{
 		// printf("on pull : %d\n", tmp->order);
 		ft_do_operation(sort, RRA);
@@ -77,6 +77,16 @@ void	ft_push_to_reserve_in_a(t_sort *sort, int *reserve)
 	(*reserve) ++;
 }
 
+int	ft_get_expected_order(t_stack *a, int max)
+{
+	while (a->previous->order == max)
+	{
+		a = a->previous;
+		max --;
+	}
+	return (max);
+}
+
 void	ft_push_back_to_a(t_sort *sort)
 {
 	int	chunk;
@@ -88,23 +98,27 @@ void	ft_push_back_to_a(t_sort *sort)
 	t_stack	*tmp;
 
 	chunk = sort->nbr_chunks;
-	reserve = 0;
 	expected_order = sort->size;
+	reserve = 0;
 	min_chunk = sort->size - sort->size_chunk + 1 - (chunk > (sort->nbr_chunks - sort->add_chunk)); 
 	max_chunk = sort->size;
 	while (chunk > 0 && expected_order > 0)
 	{
 		while (expected_order >= min_chunk)
 		{
+			// ft_print_stacks(sort->a, sort->b);
+			// printf("expected : %d min chink : %d\n", expected_order, min_chunk);
 			tmp = sort->b;
 			while (tmp && tmp->order >= min_chunk && tmp->order != expected_order)
 				tmp = tmp->next;
-			if (tmp->order == expected_order)
+			if (tmp && tmp->order == expected_order)
 				dir = RB;
 			else
 				dir = RRB;
+			// printf("on est la\n");
 			while (sort->b->order != expected_order)
 			{
+				// printf("why though\n");
 				if (((sort->a && (reserve > 0) && (sort->b->order > sort->a->previous->order)) || (reserve == 0) || !sort->a))
 				{
 					// printf("push to reserve : %d\n", sort->b->order);
@@ -118,8 +132,9 @@ void	ft_push_back_to_a(t_sort *sort)
 			}
 			ft_do_operation(sort, PA);
 			expected_order --;
-			// printf("on a push maintenant\n");
+			// printf("on a push maintenant reserve : %d\n", reserve);
 			ft_pull_a_reserve(sort, &reserve, &expected_order);
+			// printf("boon c'était pas ca\n");
 			
 			// ft_print_stacks(sort->a, sort->b);
 			// printf("expected : %d, reserve %d, min %d max : %d\n\n", expected_order, reserve, min_chunk, max_chunk);

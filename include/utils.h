@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:07:56 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/25 21:02:25 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 05:00:48 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define PRINT_ERRORS 0
 
 # define TINY_NBR_CHUNKS 2
-# define SMALL_NBR_CHUNKS 3
-# define MEDIUM_NBR_CHUNKS 11
+# define SMALL_NBR_CHUNKS 2
+# define MEDIUM_NBR_CHUNKS 8
 # define BIG_NBR_CHUNKS 20
 
 # include <stdlib.h>
