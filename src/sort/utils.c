@@ -6,11 +6,22 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 06:11:16 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/26 06:27:55 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:51:58 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	ft_is_sorted(t_stack *a)
+{
+	while (a && a->next)
+	{
+		if (a->order > a->next->order)
+			return (0);
+		a = a->next;
+	}
+	return (1);
+}
 
 int	ft_are_indep(int op1, int op2)
 {

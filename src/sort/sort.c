@@ -12,15 +12,24 @@
 
 #include "push_swap.h"
 
-int	ft_is_sorted(t_stack *a)
+void	ft_init_sort(t_sort *sort, t_stack *a, int size)
 {
-	while (a && a->next)
-	{
-		if (a->order > a->next->order)
-			return (0);
-		a = a->next;
-	}
-	return (1);
+	sort->a = a;
+	sort->b = NULL;
+	sort->size_a = size;
+	sort->size_b = 0;
+	sort->size = size;
+	sort->ops = NULL;
+	if (size <= 5)
+		sort->nbr_chunks = TINY_NBR_CHUNKS;
+	else if (size <= 10)
+		sort->nbr_chunks = SMALL_NBR_CHUNKS;
+	else if (size <= 150)
+		sort->nbr_chunks = MEDIUM_NBR_CHUNKS;
+	else
+		sort->nbr_chunks = BIG_NBR_CHUNKS;
+	sort->size_chunk = sort->size / sort->nbr_chunks;
+	sort->add_chunk = sort->size - sort->size_chunk * sort->nbr_chunks;
 }
 
 void	ft_sort_three(t_sort *sort)

@@ -6,31 +6,11 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 02:28:49 by nesuvya           #+#    #+#             */
-/*   Updated: 2024/04/26 05:12:43 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:52:11 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ft_init_sort(t_sort *sort, t_stack *a, int size)
-{
-	sort->a = a;
-	sort->b = NULL;
-	sort->size_a = size;
-	sort->size_b = 0;
-	sort->size = size;
-	sort->ops = NULL;
-	if (size <= 5)
-		sort->nbr_chunks = TINY_NBR_CHUNKS;
-	else if (size <= 10)
-		sort->nbr_chunks = SMALL_NBR_CHUNKS;
-	else if (size <= 150)
-		sort->nbr_chunks = MEDIUM_NBR_CHUNKS;
-	else
-		sort->nbr_chunks = BIG_NBR_CHUNKS;
-	sort->size_chunk = sort->size / sort->nbr_chunks;
-	sort->add_chunk = sort->size - sort->size_chunk * sort->nbr_chunks;
-}
 
 int	main(int argc, char **argv)
 {

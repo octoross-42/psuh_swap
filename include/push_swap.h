@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 03:15:56 by nesuvya           #+#    #+#             */
-/*   Updated: 2024/04/26 06:36:40 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:58:30 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include "utils.h"
 # include "printf.h"
+# include "gnl.h"
 
 typedef struct s_stack
 {
@@ -26,6 +27,7 @@ typedef struct s_stack
 	struct s_stack	*previous;
 }		t_stack;
 
+int		ft_is_sorted(t_stack *a);
 t_stack	*ft_checked_args(int argc, char **argv, int *size);
 
 void	ft_go_to_next_stack(t_stack *start, t_stack **next);
@@ -75,6 +77,7 @@ typedef struct s_sort
 	int				nbr_chunks;
 }		t_sort;
 
+void	ft_init_sort(t_sort *sort, t_stack *a, int size);
 void	ft_push_back_to_a(t_sort *sort);
 void	ft_push_to_b(t_sort *sort);
 void	ft_sort_three(t_sort *sort);
@@ -88,6 +91,7 @@ int		ft_double_swap(t_sort *sort);
 int		ft_double_rotate(t_sort *sort);
 int		ft_double_reverse_rotate(t_sort *sort);
 
+int		ft_do_op(t_sort *sort, int op);
 void	ft_do_operation(t_sort *sort, int op);
 
 typedef struct s_chunk
