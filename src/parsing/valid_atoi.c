@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 05:20:49 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/26 05:21:20 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:08:20 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,22 @@ int	ft_checked_atoi(t_valid_int *v, char *s)
 	long long	atoied;
 	int			sign;
 	int			i;
+	int			smthg;
 
 	atoied = 0;
 	i = 0;
+	smthg = 0;
 	while (ft_isspace(s[i]))
 		i ++;
 	sign = (s[i] != '-') * 2 - 1;
-	if (s[i] == '-' || s[i] == '+')
+	if (s[i] && (s[i] == '-' || s[i] == '+'))
 		i ++;
-	while (s[i] && '0' <= s[i] && s[i] <= '9')
+	while (s[i] && s[i] && '0' <= s[i] && s[i] <= '9')
+	{
+		smthg = 1;
 		atoied = atoied * 10 + (s[i ++] - '0');
-	while (ft_isspace(s[i]))
-		i ++;
-	if (s[i] || atoied * sign > INT_MAX || atoied * sign < INT_MIN)
+	}
+	if (!smthg || s[i] || atoied * sign > INT_MAX || atoied * sign < INT_MIN)
 		return (0);
 	return (v->is_valid = 1, v->n = atoied * sign, 1);
 }
