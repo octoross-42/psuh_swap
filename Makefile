@@ -1,4 +1,5 @@
 NAME = push_swap
+BONUS = checker
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -20,7 +21,18 @@ SRCS =  src/operations/operation_handling.c \
 		src/utils/split.c \
 		src/push_swap.c
 
+SRCS_BONUS = src/parsing/parsing.c \
+		src/bonus/gnl/gnl.c \
+		src/bonus/gnl/gnl_utils.c \
+		src/bonus/checker.c \
+		src/utils/split.c \
+		src/operations/pushs_swaps.c \
+		src/operations/rotates.c \
+		src/operations/operation_handling.c \
+		src/stack/stack_handling.c
+
 OBJS = ${SRCS:.c=.o}
+OBJS_BONUS = ${SRCS_BONUS:.c=.o}
 
 %.o: %.c
 	$(CC) $(CFLAGS) -Iinclude -c $< -o ${<:.c=.o}	
@@ -29,11 +41,13 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) ${OBJS_BONUS}
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS)
 
 re: fclean all
 
 all : $(NAME)
+
+bonus:
