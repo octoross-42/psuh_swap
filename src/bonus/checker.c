@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:17:20 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/26 08:56:40 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:09:39 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,35 @@ int	ft_get_op(char *s)
 	return (-1);
 }
 
+int	ft_read_ops(t_sort *sort)
+{
+	char	*s;
+	int		op;
+
+	s = get_next_line(0);
+	if (!s && ft_is_sorted(sort->a))
+		return (ft_clear_stack(&(sort->a)), write(1, "OK\n", 3), 0);
+	if (!s)
+		return (ft_clear_stack(&(sort->a)), write(1, "KO\n", 3), 0);
+	while (s)
+	{
+		op = ft_get_op(s);
+		if (op < 0)
+			return (free(s), ft_clear_stack(&(sort->a)),
+				write(2, "Error\n", 6), 1);
+		ft_do_op(sort, op);
+		free(s);
+		s = get_next_line(0);
+	}
+	return (-1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_sort	sort;
 	t_stack	*a;
 	int		size;
-	char	*s;
-	int		op;
+	int		re;
 
 	if (argc < 2)
 		return (0);
@@ -53,22 +75,13 @@ int	main(int argc, char **argv)
 	if (!a)
 		return (write(2, "Error\n", 6), 1);
 	ft_init_sort(&sort, a, size);
-	s = get_next_line(0);
-	op = ft_get_op(s);
-	if (op < 0)
-		return (ft_clear_stack(&sort.a), write(2, "Error\n", 6), 1);
-	while (s)
-	{
-		free(s);
-		s = get_next_line(0);
-		op = ft_get_op(s);
-		if (op < 0)
-			return (ft_clear_stack(&sort.a), write(2, "Error\n", 6), 1);
-		ft_do_op(&sort, op);
-	}
+	re = ft_read_ops(&sort);
+	if (re >= 0)
+		return (re);
 	if (ft_is_sorted(sort.a) && !sort.b)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
 	ft_clear_stacks(&sort.a, &sort.b);
+	return (0);
 }
