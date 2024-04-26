@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 05:20:49 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/26 08:08:20 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:32:23 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_checked_atoi(t_valid_int *v, char *s)
 	{
 		smthg = 1;
 		atoied = atoied * 10 + (s[i ++] - '0');
+		if (atoied * sign > INT_MAX || atoied * sign < INT_MIN)
+			return (0);
 	}
 	if (!smthg || s[i] || atoied * sign > INT_MAX || atoied * sign < INT_MIN)
 		return (0);
