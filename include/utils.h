@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:07:56 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/26 06:34:37 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 06:36:46 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 # define ERR_SAME "Error : value is not unique : %d\n"
 # define ERR_INT "Error : %s is not an int\n"
 # define ERR_NO_ARG "Error : no value given\n"
+
+# define SA 0
+# define SB 1
+# define SS 2
+# define PA 3
+# define PB 4
+# define RA 5
+# define RB 6
+# define RR 7
+# define RRA 8
+# define RRB 9
+# define RRR 10
 
 # define PRINT_ERRORS 0
 

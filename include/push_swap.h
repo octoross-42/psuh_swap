@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 03:15:56 by nesuvya           #+#    #+#             */
-/*   Updated: 2024/04/26 06:35:04 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 06:36:40 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,6 @@
 # include <limits.h>
 # include "utils.h"
 # include "printf.h"
-
-# define SA 0
-# define SB 1
-# define SS 2
-# define PA 3
-# define PB 4
-# define RA 5
-# define RB 6
-# define RR 7
-# define RRA 8
-# define RRB 9
-# define RRR 10
 
 typedef struct s_stack
 {
