@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 02:28:49 by nesuvya           #+#    #+#             */
-/*   Updated: 2024/04/26 05:01:26 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 05:12:43 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,8 @@ void	ft_init_sort(t_sort *sort, t_stack *a, int size)
 	sort->b = NULL;
 	sort->size_a = size;
 	sort->size_b = 0;
-	sort->min_a = 1;
-	sort->min_b = 0;
-	sort->max_a = size;
-	sort->max_b = 0;
 	sort->size = size;
 	sort->ops = NULL;
-	sort->nbr_ops = 0;
 	if (size <= 5)
 		sort->nbr_chunks = TINY_NBR_CHUNKS;
 	else if (size <= 10)
@@ -37,7 +32,7 @@ void	ft_init_sort(t_sort *sort, t_stack *a, int size)
 	sort->add_chunk = sort->size - sort->size_chunk * sort->nbr_chunks;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_sort	sort;
 	t_stack	*a;
@@ -54,12 +49,8 @@ int main(int argc, char **argv)
 	}
 	ft_init_sort(&sort, a, size);
 	ft_sort(&sort);
-	// ft_print_stacks(sort.a, sort.b);
-	ft_synthetise_ops(sort.nbr_ops, &sort.ops);
+	ft_synthetise_ops(&sort.ops);
 	ft_print_operations(sort.ops);
 	ft_clear_stacks(&sort.a, &sort.b);
-	// ft_clear_operations(sort.ops);
 	return (0);
 }
-
-// TODO fix printf

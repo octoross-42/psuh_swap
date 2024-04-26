@@ -12,20 +12,6 @@
 
 #include "push_swap.h"
 
-int	ft_max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
-
 int	ft_nbr_digits(unsigned long nbr)
 {
 	int	nbr_digits;
@@ -44,6 +30,7 @@ int	ft_isspace(char c)
 	return (c == ' ' || c == '\f' || c == '\n'
 		|| c == '\r' || c == '\t' || c == '\v');
 }
+
 char	ft_lowercasetouppercase(char c)
 {
 	return (c + ('A' - 'a'));
@@ -70,5 +57,3 @@ int	ft_strlen(const char *s)
 		len ++;
 	return (len);
 }
-
-

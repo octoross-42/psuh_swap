@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:07:56 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/26 05:00:48 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 06:34:37 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_valid_int
 {
 	int	n;
 	int	is_valid;
-	int order;
+	int	order;
 }	t_valid_int;
 
 int		ft_nbr_digits(unsigned long nbr);

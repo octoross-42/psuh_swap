@@ -34,7 +34,7 @@ void	ft_free_until(void **tab, int start, int end)
 		while (strs[i])
 			free(strs[i ++]);
 	}
-	else 
+	else
 	{
 		while (i < end)
 			free(tab[i++]);
@@ -98,7 +98,7 @@ char	**ft_split(char const *s, char *sep)
 	nbr_words = 0;
 	i = 0;
 	while (s[i] && ft_is_sep(s[i], sep))
-			i ++;
+		i ++;
 	while (s[i])
 	{
 		splited[nbr_words] = ft_next_word(s, &i, sep);

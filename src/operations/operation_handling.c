@@ -50,13 +50,6 @@ void	ft_print_operations(t_operations *operations)
 	ft_print_operations(next);
 }
 
-void	ft_clear_operations(t_operations *ops)
-{
-	if (ops->next)
-		ft_clear_operations(ops->next);
-	free(ops);
-}
-
 int	ft_add_operation(int op, t_operations **operations)
 {
 	t_operations	*next;
@@ -83,40 +76,43 @@ int	ft_add_operation(int op, t_operations **operations)
 	return (0);
 }
 
-// TODO gérer les opérations "vides" (rotate quand ya qu'un truc toussa)
-// TODO changer proto pushs pour changer sizes sort
+int	ft_do_op(t_sort *sort, int op)
+{
+	if (op == SA)
+		return (ft_swap(sort->a));
+	else if (op == SB)
+		return (ft_swap(sort->b));
+	else if (op == SS)
+		return (ft_double_swap(sort));
+	else if (op == PA)
+		return (ft_push(&(sort->a), &(sort->b)));
+	else if (op == PB)
+		return (ft_push(&(sort->b), &(sort->a)));
+	else if (op == RA)
+		return (ft_rotate(&(sort->a)));
+	else if (op == RB)
+		return (ft_rotate(&(sort->b)));
+	else if (op == RR)
+		return (ft_double_rotate(sort));
+	else if (op == RRA)
+		return (ft_reverse_rotate(&(sort->a)));
+	else if (op == RRB)
+		return (ft_reverse_rotate(&(sort->b)));
+	else if (op == RRR)
+		return (ft_double_reverse_rotate(sort));
+	return (0);
+}
 
 void	ft_do_operation(t_sort *sort, int op)
 {
 	int	done;
 
-	done = 0;
-	if (op == SA)
-		done = ft_swap(sort->a);
-	else if (op == SB)
-		done = ft_swap(sort->b);
-	else if (op == SS)
-		done = ft_double_swap(sort);
-	else if (op == PA)
-		done = ft_push(&(sort->a), &(sort->b));
-	else if (op == PB)
-		done = ft_push(&(sort->b), &(sort->a));
-	else if (op == RA)
-		done = ft_rotate(&(sort->a));
-	else if (op == RB)
-		done = ft_rotate(&(sort->b));
-	else if (op == RR)
-		done = ft_double_rotate(sort);
-	else if (op == RRA)
-		done = ft_reverse_rotate(&(sort->a));
-	else if (op == RRB)
-		done = ft_reverse_rotate(&(sort->b));
-	else if (op == RRR)
-		done = ft_double_reverse_rotate(sort);
+	done = ft_do_op(sort, op);
 	if (!done)
 		return ;
-	sort->size_a += (op == PA) * (sort->size_b > 0) - (op == PB) * (sort->size_a > 0);
-	sort->size_b += (op == PB) * (sort->size_a > 0) - (op == PA) * (sort->size_b > 0);
-	sort->nbr_ops ++;
+	sort->size_a += (op == PA) * (sort->size_b > 0)
+		- (op == PB) * (sort->size_a > 0);
+	sort->size_b += (op == PB) * (sort->size_a > 0)
+		- (op == PA) * (sort->size_b > 0);
 	ft_add_operation(op, &(sort->ops));
 }

@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:41:03 by octoross          #+#    #+#             */
-/*   Updated: 2024/04/26 04:56:27 by octoross         ###   ########.fr       */
+/*   Updated: 2024/04/26 05:23:59 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 long	ft_cast_hex(int n)
 {
-	unsigned int u = n;
-	long nbr = u;
+	unsigned int	u;
+	long			nbr;
+
+	u = n;
+	nbr = u;
 	return (nbr);
 }
 
@@ -25,7 +28,7 @@ int	ft_putnbr(long n, int lowercase, long base)
 
 	len = 0;
 	if (n < 0 && base == 10)
-	{	
+	{
 		len += write(1, "-", 1);
 		n = -n;
 	}

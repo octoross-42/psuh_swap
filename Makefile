@@ -7,10 +7,11 @@ SRCS =  src/operations/operation_handling.c \
 		src/operations/pushs_swaps.c \
 		src/operations/rotates.c \
 		src/parsing/parsing.c \
+		src/parsing/valid_atoi.c \
 		src/stack/stack_handling.c \
-		src/stack/print_stacks.c \
-		src/sort/chunks_sort.c \
+		src/sort/push_back_to_a.c \
 		src/sort/push_to_b.c \
+		src/sort/utils.c \
 		src/sort/sort.c \
 		src/sort/optimise_ops.c \
 		src/printf/printf.c \
@@ -22,11 +23,10 @@ SRCS =  src/operations/operation_handling.c \
 OBJS = ${SRCS:.c=.o}
 
 %.o: %.c
-	$(CC) $(CFLAGS) -Iinclude -c -g3 $< -o ${<:.c=.o}	
+	$(CC) $(CFLAGS) -Iinclude -c $< -o ${<:.c=.o}	
 	
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
-	#enlever -g3
 
 clean:
 	rm -f $(OBJS)
